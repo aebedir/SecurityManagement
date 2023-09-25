@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block css %}{% endblock css %}
+
+{% block content %}
+<h3 class="text-center">Add Security Guards</h3>
+<div class="container w-25 mt-5">    
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="">Name:</label>
+        <input class="form-control" type="text" name="name" >
+        <label for="">Surname :</label>
+        <input class="form-control" type="text" name="surname">
+        <label for="">Date of Birth :</label>
+        <input class="form-control" type="date" name="date" ">
+        <label for="">Experience</label>
+        <input class="form-control" type="number" name="experience">
+        <label for="">Start Time :</label>
+        <input class="form-control" type="time" name="start" id="">
+        <label for="">End Time :</label>
+        <input class="form-control" type="time" name="end" id="">
+        <div class="m-auto text-center mt-3">
+            <input class="btn btn-danger w-100"type="submit" value="Add Security">
+        </div>        
+    </form>
+</div>
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

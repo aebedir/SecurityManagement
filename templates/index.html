@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style>
+    table{
+        width: 1000px;
+        margin: auto;
+    }
+    table td,th{
+        text-align: center;
+    }
+    .data{
+        border-bottom: 1px solid black;
+        height: 50px;
+    }
+    
+</style>
+{% endblock css %}
+
+{% block content %}
+<h3 class="text-center mt-3">Security Guards Table</h3>
+<div class="container mt-5">
+    {% if guards|length == 0 %}
+    <h5 class="text-center mt-3">Not Found</h5>
+    <div class="text-center">
+        <a href="{% url "securityGuards" %}" class="btn btn-danger btn-sm">Add Security Guard</a>
+    </div>    
+    {% else %} 
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Date of Birth</th>
+                <th>Experience</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for guard,time in guard_list %}
+            <tr class="data">
+                <td>{{ guard.name }}</td>
+                <td>{{ guard.surname }}</td>
+                <td>{{ guard.date_of_birth }}</td>
+                <td>{{ guard.years_of_experience }}</td>
+                <td>{{ time.start_time|date:"H:i" }}</td>
+                <td>{{ time.end_time|date:"H:i" }}</td>
+                <td><a class="btn btn-success btn-sm" href="{% url "editTime" time.id %}">Edit</a></td> 
+                <form action="{% url "index" %}" class="form-delete" method="POST">
+                    {% csrf_token %}
+                <td>                    
+                    <input type="hidden" name="guardId" value="{{guard.id}}">
+                    <input type="hidden" name="timeId" value="{{time.id}}">
+                    <button  class="btn btn-danger btn-sm" type="submit">Sil</button>
+                </td>  
+            </form>           
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>       
+    {% endif %}       
+</div>
+{% endblock content %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.form-delete').submit(function (e){
+            e.preventDefault();
+            var form = $(this);
+            var form_serialize=form.serialize();        
+            $.ajax({
+                method:'POST',
+                type:'json',
+                url:form.attr('action'),
+                data:form_serialize,
+                success:function(data){
+                    form.parent().remove();
+                }
+            })
+        });
+    });
+</script>
+{% endblock script %}
