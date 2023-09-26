@@ -11,6 +11,7 @@ def index(request):
         guard = SecurityGuard.objects.get(id=guard_id)
         guard.delete()
         
+        
         return JsonResponse(data={'success':'Deleted'})    
     context = {        
         'guards':guards,        
@@ -67,6 +68,7 @@ def editTime(request,guardId):
         guard.duty_times = DutyTime.objects.get(time=time_id)
         guard.save()
 
+        messages.success(request, 'Security Guard Edited')
         return redirect('index')
     context = {
         'places': places,

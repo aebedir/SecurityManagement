@@ -11,14 +11,14 @@
         {% csrf_token %}        
         <label for="">Place :</label>
         <select class="form-control" name="place" >
-            <option value="">Seçiniz</option>
+            <option value="{{guard.guard_place.id}}">{{guard.guard_place}}</option>
             {% for p in places %}
             <option value="{{p.id}}">{{p.place}}</option>
             {% endfor %}
         </select>
         <label for="">Times :</label>
         <select class="form-control" name="time" >
-            <option value="">Seçiniz</option>
+            <option value="{{guard.duty_times.time}}">{{guard.duty_times}}</option>
             {% for times in duty_times %}
             <option value="{{times.time}}">{{times.time}}</option>
             {% endfor %}
