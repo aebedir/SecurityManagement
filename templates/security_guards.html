@@ -12,13 +12,24 @@
         <label for="">Surname :</label>
         <input class="form-control" type="text" name="surname">
         <label for="">Date of Birth :</label>
-        <input class="form-control" type="date" name="date" ">
+        <input class="form-control" type="date" name="date">
         <label for="">Experience</label>
         <input class="form-control" type="number" name="experience">
-        <label for="">Start Time :</label>
-        <input class="form-control" type="time" name="start" id="">
-        <label for="">End Time :</label>
-        <input class="form-control" type="time" name="end" id="">
+        <label for="">Place :</label>
+        <select class="form-control" name="place" >
+            <option value="">Seçiniz</option>
+            {% for p in places %}
+            <option value="{{p.id}}">{{p.place}}</option>
+            {% endfor %}
+        </select>
+        <label for="">Times :</label>
+        <select class="form-control" name="time" >
+            <option value="">Seçiniz</option>
+            {% for times in duty_times %}
+            <option value="{{times.time}}">{{ times.time}}</option>
+            {% endfor %}
+        </select>       
+        
         <div class="m-auto text-center mt-3">
             <input class="btn btn-danger w-100"type="submit" value="Add Security">
         </div>        

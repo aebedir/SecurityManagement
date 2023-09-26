@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',index,name="index"),    
     path('addsecurityguards',securityGuards,name="securityGuards"),
-    path('edittime<int:timeId>',editTime,name="editTime")
+    path('edittime<int:guardId>',editTime,name="editTime")
 ]

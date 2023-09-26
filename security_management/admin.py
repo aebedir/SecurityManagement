@@ -3,6 +3,6 @@ from .models import *
 # Register your models here.
 
 
-
+admin.site.register(Place)
 admin.site.register(SecurityGuard)
 admin.site.register(DutyTime)

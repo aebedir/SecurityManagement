@@ -4,16 +4,28 @@
 
 {% block content %}
 <h3 class="text-center">Add Security Guards</h3>
-<div class="container w-25 mt-5">    
+<div class="container w-25 mt-5">
+    <h6>{{guard.name}} {{guard.surname}}</h6>
+    <h6>{{guard.date_of_birth}}</h6>       
     <form action="" method="POST">
         {% csrf_token %}        
-        <label for="">Start Time :</label>
-        <input class="form-control" type="time" name="start" id="">
-        <label for="">End Time :</label>
-        <input class="form-control" type="time" name="end" id="">
+        <label for="">Place :</label>
+        <select class="form-control" name="place" >
+            <option value="">Seçiniz</option>
+            {% for p in places %}
+            <option value="{{p.id}}">{{p.place}}</option>
+            {% endfor %}
+        </select>
+        <label for="">Times :</label>
+        <select class="form-control" name="time" >
+            <option value="">Seçiniz</option>
+            {% for times in duty_times %}
+            <option value="{{times.time}}">{{times.time}}</option>
+            {% endfor %}
+        </select>
         <div class="m-auto text-center mt-3">
-            <input class="btn btn-danger w-100"type="submit" value="Edit Time">
-        </div>        
+            <input class="btn btn-danger w-100"type="submit" value="Edit Security">
+        </div>           
     </form>
 </div>
 {% endblock content %}

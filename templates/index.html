@@ -25,7 +25,10 @@
     <div class="text-center">
         <a href="{% url "securityGuards" %}" class="btn btn-danger btn-sm">Add Security Guard</a>
     </div>    
-    {% else %} 
+    {% else %}
+    <div class="position-absolute" style="top:100px; right:250px;">
+        <a class="btn btn-danger" href="{% url "securityGuards" %}">Add</a>  
+    </div>    
     <table>
         <thead>
             <tr>
@@ -33,32 +36,33 @@
                 <th>Surname</th>
                 <th>Date of Birth</th>
                 <th>Experience</th>
+                <th>Place</th>
                 <th>Start Time</th>
                 <th>End Time</th>
             </tr>
         </thead>
         <tbody>
-            {% for guard,time in guard_list %}
+            {% for guard in guards %}
             <tr class="data">
-                <td>{{ guard.name }}</td>
-                <td>{{ guard.surname }}</td>
-                <td>{{ guard.date_of_birth }}</td>
-                <td>{{ guard.years_of_experience }}</td>
-                <td>{{ time.start_time|date:"H:i" }}</td>
-                <td>{{ time.end_time|date:"H:i" }}</td>
-                <td><a class="btn btn-success btn-sm" href="{% url "editTime" time.id %}">Edit</a></td> 
+                <td><a href="{% url "editTime" guard.id %}">{{guard.name}}</a></td>
+                <td>{{guard.surname}}</td>
+                <td>{{guard.date_of_birth}}</td>
+                <td>{{guard.years_of_experience}}</td>
+                <td>{{guard.guard_place}}</td>
+                <td>{{guard.duty_times}}</td>
+                
+                <td><a class="btn btn-success btn-sm" href="{% url "editTime" guard.id %}" >Edit</a></td> 
                 <form action="{% url "index" %}" class="form-delete" method="POST">
                     {% csrf_token %}
                 <td>                    
-                    <input type="hidden" name="guardId" value="{{guard.id}}">
-                    <input type="hidden" name="timeId" value="{{time.id}}">
+                    <input type="hidden" name="guardId" value="{{guard.id}}">                    
                     <button  class="btn btn-danger btn-sm" type="submit">Sil</button>
                 </td>  
             </form>           
             </tr>
             {% endfor %}
         </tbody>
-    </table>       
+    </table>          
     {% endif %}       
 </div>
 {% endblock content %}
